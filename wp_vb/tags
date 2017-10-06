@@ -1,0 +1,59 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ALLOWED_HOSTS	wp_vb/settings.py	/^ALLOWED_HOSTS = []$/;"	kind:variable	line:33
+AUTH_PASSWORD_VALIDATORS	wp_vb/settings.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:94
+DATABASES	wp_vb/settings.py	/^DATABASES = {$/;"	kind:variable	line:83
+DEBUG	wp_vb/settings.py	/^DEBUG = True$/;"	kind:variable	line:31
+DJANGO_ROOT	wp_vb/settings.py	/^DJANGO_ROOT = dirname(dirname(abspath(__file__)))$/;"	kind:variable	line:20
+GathererConfig	gatherer/apps.py	/^class GathererConfig(AppConfig):$/;"	kind:class	line:4
+HomeConfig	home/apps.py	/^class HomeConfig(AppConfig):$/;"	kind:class	line:4
+INSTALLED_APPS	wp_vb/settings.py	/^INSTALLED_APPS = [$/;"	kind:variable	line:38
+LANGUAGE_CODE	wp_vb/settings.py	/^LANGUAGE_CODE = 'en-us'$/;"	kind:variable	line:113
+MEDIA_ROOT	wp_vb/settings.py	/^MEDIA_ROOT = join(DJANGO_ROOT, 'media\/')$/;"	kind:variable	line:129
+MEDIA_URL	wp_vb/settings.py	/^MEDIA_URL = '\/media\/'$/;"	kind:variable	line:133
+MIDDLEWARE	wp_vb/settings.py	/^MIDDLEWARE = [$/;"	kind:variable	line:49
+ROOT_URLCONF	wp_vb/settings.py	/^ROOT_URLCONF = 'wp_vb.urls'$/;"	kind:variable	line:59
+SECRET_KEY	wp_vb/settings.py	/^SECRET_KEY = '8-g$j2bba08d+sm3()3d02d)=ym0d$n%-62@_9)q!8o(uu&@4@'$/;"	kind:variable	line:28
+SITE_ROOT	wp_vb/settings.py	/^SITE_ROOT = dirname(DJANGO_ROOT)$/;"	kind:variable	line:22
+STATIC_URL	wp_vb/settings.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:127
+TEMPLATES	wp_vb/settings.py	/^TEMPLATES = [$/;"	kind:variable	line:61
+TIME_ZONE	wp_vb/settings.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:115
+USE_I18N	wp_vb/settings.py	/^USE_I18N = True$/;"	kind:variable	line:117
+USE_L10N	wp_vb/settings.py	/^USE_L10N = True$/;"	kind:variable	line:119
+USE_TZ	wp_vb/settings.py	/^USE_TZ = True$/;"	kind:variable	line:121
+WSGI_APPLICATION	wp_vb/settings.py	/^WSGI_APPLICATION = 'wp_vb.wsgi.application'$/;"	kind:variable	line:77
+__init__.py	gatherer/__init__.py	1;"	kind:file	line:1
+__init__.py	gatherer/migrations/__init__.py	1;"	kind:file	line:1
+__init__.py	home/__init__.py	1;"	kind:file	line:1
+__init__.py	home/migrations/__init__.py	1;"	kind:file	line:1
+__init__.py	wp_vb/__init__.py	1;"	kind:file	line:1
+admin.py	gatherer/admin.py	1;"	kind:file	line:1
+admin.py	home/admin.py	1;"	kind:file	line:1
+application	wp_vb/wsgi.py	/^application = get_wsgi_application()$/;"	kind:variable	line:16
+apps.py	gatherer/apps.py	1;"	kind:file	line:1
+apps.py	home/apps.py	1;"	kind:file	line:1
+index	gatherer/views.py	/^def index(request):$/;"	kind:function	line:5
+index	home/views.py	/^def index(request):$/;"	kind:function	line:5
+loadFromCSV	gatherer/views.py	/^def loadFromCSV():$/;"	kind:function	line:13
+manage.py	manage.py	1;"	kind:file	line:1
+models.py	gatherer/models.py	1;"	kind:file	line:1
+models.py	home/models.py	1;"	kind:file	line:1
+name	gatherer/apps.py	/^    name = 'gatherer'$/;"	kind:variable	line:5
+name	home/apps.py	/^    name = 'home'$/;"	kind:variable	line:5
+settings.py	wp_vb/settings.py	1;"	kind:file	line:1
+test	home/views.py	/^def test(request):$/;"	kind:function	line:12
+tests.py	gatherer/tests.py	1;"	kind:file	line:1
+tests.py	home/tests.py	1;"	kind:file	line:1
+urlpatterns	gatherer/urls.py	/^urlpatterns = [$/;"	kind:variable	line:5
+urlpatterns	home/urls.py	/^urlpatterns = [$/;"	kind:variable	line:5
+urlpatterns	wp_vb/urls.py	/^urlpatterns = [$/;"	kind:variable	line:21
+urls.py	gatherer/urls.py	1;"	kind:file	line:1
+urls.py	home/urls.py	1;"	kind:file	line:1
+urls.py	wp_vb/urls.py	1;"	kind:file	line:1
+views.py	gatherer/views.py	1;"	kind:file	line:1
+views.py	home/views.py	1;"	kind:file	line:1
+wsgi.py	wp_vb/wsgi.py	1;"	kind:file	line:1

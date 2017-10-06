@@ -13,3 +13,12 @@ def index(request):
 def loadFromCSV():
     print("nothing loaded :D")
     print("TODO load CSV from webpage and parse")
+
+
+def test(request):
+    '''
+    Default function when loading the page: send back a rendered version of index.html
+    '''
+    context = {}
+    print("testing")
+    return render(request, 'gatherer/index.html', context)
