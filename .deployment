@@ -1,2 +1,2 @@
 [config]
-command = wp_vb\server\deploy.cmd
+command = deploy.cmd
