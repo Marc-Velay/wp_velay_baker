@@ -10,8 +10,8 @@ def index(request):
     '''
     Default function when loading the page: send back a rendered version of index.html
     '''
-    context = {}
-    loadFromCSV()
+    context = {'input': "hello there folks!"}
+    #loadFromCSV()
     return render(request, 'gatherer/index.html', context)
 
 #Function to format date and time correctly
