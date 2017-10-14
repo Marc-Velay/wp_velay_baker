@@ -3,15 +3,27 @@ import csv
 from django.conf import settings
 from datetime import datetime
 from gatherer.models import Item
+from rest_framework import generics
+from .serializer import ItemSerializer
 
 # Create your views here.
+
+class CreateView(generics.ListCreateAPIView):
+    """This class defines the create behavior of our rest api."""
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+
+    def perform_create(self, serializer):
+        """Save the post data when creating a new item."""
+        serializer.save()
 
 def index(request):
     '''
     Default function when loading the page: send back a rendered version of index.html
     '''
     context = {}
-    loadFromCSV()
+    #loadJSONfromDB()
+    #loadFromCSV()
     return render(request, 'gatherer/index.html', context)
 
 #Function to format date and time correctly
@@ -36,10 +48,14 @@ def loadFromCSV():
                 closing = row[5],
                 )
 
+def loadJSONfromDB():
+    one_entry = Item.objects.get(id=5)
+    print(one_entry.closing)
+
 def test(request):
     '''
     Default function when loading the page: send back a rendered version of index.html
     '''
     context = {}
-    loadFromCSV()
+    #loadFromCSV()
     return render(request, 'gatherer/index.html', context)
