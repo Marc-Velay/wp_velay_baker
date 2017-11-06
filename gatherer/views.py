@@ -5,6 +5,7 @@ from datetime import datetime
 from gatherer.models import Item
 from rest_framework import generics
 from .serializer import ItemSerializer
+from .models import Item
 
 # Create your views here.
 
@@ -23,6 +24,7 @@ def index(request):
     '''
     context = {'input': "hello there folks!"}
     #loadFromCSV()
+    #CreateView.as_view()
     return render(request, 'gatherer/index.html', context)
 
 #Function to format date and time correctly
@@ -50,11 +52,3 @@ def loadFromCSV():
 def loadJSONfromDB():
     one_entry = Item.objects.get(id=5)
     print(one_entry.closing)
-
-def test(request):
-    '''
-    Default function when loading the page: send back a rendered version of index.html
-    '''
-    context = {}
-    #loadFromCSV()
-    return render(request, 'gatherer/index.html', context)
