@@ -9,10 +9,17 @@ from api.models import Bucketlist
 # Create your views here.
 
 class CreateView(generics.ListCreateAPIView):
-    """This class defines the create behavior of our rest api."""
+
+    # Gives us control over our api
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
 
     def perform_create(self, serializer):
         """Save the post data when creating a new bucketlist."""
         serializer.save()
+
+class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+
+    # Handles REST ( GET, PUT, DELETE )
+    queryset = Bucketlist.objects.all()
+    serializer_class = BucketlistSerializer
