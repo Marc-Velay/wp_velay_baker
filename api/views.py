@@ -11,7 +11,7 @@ from api.models import Item,Bucketlist
 class CreateView(generics.ListCreateAPIView):
 
     # Gives us control over our api
-    queryset = Item.objects.all()
+    queryset = Item.objects.filter(id__lte=100)
     serializer_class = ItemSerializer
 
     def perform_create(self, serializer):
