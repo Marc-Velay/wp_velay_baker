@@ -6,6 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from api.views import CreateView, DetailsView, item_year, item_day, item_month, item_last24
 
 urlpatterns = {
+    url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^bucketlists/$', CreateView.as_view(), name="create"),
     url(r'^bucketlists/(?P<pk>[0-9]+)/$', DetailsView.as_view(), name="details"),
     url(r'^items/$', CreateView.as_view(), name="create"),

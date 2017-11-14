@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics,permissions
 from api.serializers import ItemSerializer,BucketlistSerializer
 from api.models import Item,Bucketlist
 import datetime
@@ -14,6 +14,7 @@ class CreateView(generics.ListCreateAPIView):
     # Gives us control over our api
     queryset = Item.objects.filter(id__lte=100)
     serializer_class = ItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def perform_create(self, serializer):
         """Save the post data when creating a new Item."""
@@ -24,11 +25,13 @@ class DetailsView(generics.RetrieveUpdateDestroyAPIView):
     # Handles REST ( GET, PUT, DELETE )
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
 class item_year(generics.ListCreateAPIView):
 
     #Fetch correct item serializer
     serializer_class = ItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         """
@@ -45,6 +48,7 @@ class item_month(generics.ListCreateAPIView):
 
     #Fetch correct item serializer
     serializer_class = ItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         """
@@ -63,6 +67,7 @@ class item_day(generics.ListCreateAPIView):
 
     #Fetch correct item serializer
     serializer_class = ItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         """
@@ -83,6 +88,7 @@ class item_last24(generics.ListCreateAPIView):
 
     #Fetch serializer
     serializer_class = ItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         """
