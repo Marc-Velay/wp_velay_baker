@@ -3,7 +3,7 @@
 
 from django.conf.urls import url, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from api.views import CreateView, DetailsView, item_year, item_day, item_month
+from api.views import CreateView, DetailsView, item_year, item_day, item_month, item_last24
 
 urlpatterns = {
     url(r'^bucketlists/$', CreateView.as_view(), name="create"),
@@ -13,6 +13,7 @@ urlpatterns = {
         url(r'^(?P<year>[0-9]{4})/$', item_year.as_view(), name="year"),
         url(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', item_day.as_view(), name="day"),
         url(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$', item_month.as_view(), name="month"),
+        url(r'^last24/$', item_last24.as_view(), name="Last 24 hours"),
     ])),
 }
 

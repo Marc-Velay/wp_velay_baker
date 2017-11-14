@@ -36,7 +36,10 @@ class item_year(generics.ListCreateAPIView):
         """
         item = self.kwargs['item']
         year = self.kwargs['year']
-        return Item.objects.filter(name = item, timestamp__year = year)[:100]
+        return Item.objects.filter(
+            name = item,
+            timestamp__year = year
+        )[:100]
 
 class item_month(generics.ListCreateAPIView):
 
@@ -50,7 +53,11 @@ class item_month(generics.ListCreateAPIView):
         item = self.kwargs['item']
         year = self.kwargs['year']
         month = self.kwargs['month']
-        return Item.objects.filter(name = item, timestamp__year = year, timestamp__month = month)[:100]
+        return Item.objects.filter(
+            name = item,
+            timestamp__year = year,
+            timestamp__month = month
+        )[:100]
 
 class item_day(generics.ListCreateAPIView):
 
@@ -65,4 +72,25 @@ class item_day(generics.ListCreateAPIView):
         year = self.kwargs['year']
         month = self.kwargs['month']
         day = self.kwargs['day']
-        return Item.objects.filter(name = item, timestamp__year = year, timestamp__month = month, timestamp__day = day)[:100]
+        return Item.objects.filter(
+            name = item,
+            timestamp__year = year,
+            timestamp__month = month,
+            timestamp__day = day
+        )[:100]
+
+class item_last24(generics.ListCreateAPIView):
+
+    #Fetch serializer
+    serializer_class = ItemSerializer
+
+    def get_queryset(self):
+        """
+        This view returns the last 24 hours of a given item
+        """
+        item = self.kwargs['item']
+        date_from = datetime.datetime.now() - datetime.timedelta(days=1)
+        return Item.objects.filter(
+            name = item,
+            timestamp__gte = date_from
+        )[:100]
