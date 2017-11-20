@@ -2,6 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+from django.dispatch import receiver
 
 # Stock and item model
 class Item(models.Model):
@@ -16,3 +20,8 @@ class Item(models.Model):
     def __str__(self):
         """Return a human readable representation of the model instance."""
         return "{}".format(self.name)
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

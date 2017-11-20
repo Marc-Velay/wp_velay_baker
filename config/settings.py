@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # 3rd party frameworks
     'rest_framework',
+    'rest_framework.authtoken',
 
     # My apps
     'api.apps.ApiConfig',
@@ -91,6 +92,17 @@ DATABASES = {
     }
 }
 
+# Authentication for the users
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

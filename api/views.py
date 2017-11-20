@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from rest_framework import generics,permissions
-from api.serializers import ItemSerializer
+from django.contrib.auth.models import User
+from api.serializers import ItemSerializer, UserSerializer
 from api.models import Item
 import datetime
 
@@ -100,3 +101,14 @@ class item_last24(generics.ListCreateAPIView):
             name = item,
             timestamp__gte = date_from
         )[:100]
+
+class UserView(generics.ListAPIView):
+    """View to list the user queryset."""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetailsView(generics.RetrieveAPIView):
+    """View to retrieve a user instance."""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
