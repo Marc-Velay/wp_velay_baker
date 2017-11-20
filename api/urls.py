@@ -7,8 +7,6 @@ from api.views import CreateView, DetailsView, item_year, item_day, item_month, 
 
 urlpatterns = {
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^bucketlists/$', CreateView.as_view(), name="create"),
-    url(r'^bucketlists/(?P<pk>[0-9]+)/$', DetailsView.as_view(), name="details"),
     url(r'^items/$', CreateView.as_view(), name="create"),
     url(r'^(?P<item>\w+)/',include([
         url(r'^(?P<year>[0-9]{4})/$', item_year.as_view(), name="year"),

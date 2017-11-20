@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from rest_framework import generics,permissions
-from api.serializers import ItemSerializer,BucketlistSerializer
-from api.models import Item,Bucketlist
+from api.serializers import ItemSerializer
+from api.models import Item
 import datetime
 
 # Create your views here.

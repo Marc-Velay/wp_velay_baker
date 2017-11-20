@@ -48,7 +48,6 @@ INSTALLED_APPS = [
 
     # My apps
     'api.apps.ApiConfig',
-    'gatherer',
 ]
 
 MIDDLEWARE = [

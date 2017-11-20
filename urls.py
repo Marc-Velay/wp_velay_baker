@@ -17,7 +17,5 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    #url(r'^gatherer/', include('gatherer.urls', namespace="gatherer")),
-    #url(r'^', include('home.urls', namespace="home")),
     url(r'^', include('api.urls')),
 ]
