@@ -3,8 +3,11 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from rest_framework import generics,permissions
+from rest_framework.response import Response
 from django.contrib.auth.models import User
-from api.serializers import ItemSerializer, UserSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from api.serializers import *
 from api.models import Item
 import datetime
 
@@ -102,11 +105,16 @@ class item_last24(generics.ListCreateAPIView):
             timestamp__gte = date_from
         )[:100]
 
+class CustomObtainAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
+        token = Token.objects.get(key=response.data['token'])
+        return Response({'token': token.key, 'username': token.user.username, 'id': token.user_id})
+
 class UserView(generics.ListAPIView):
     """View to list the user queryset."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
 
 class UserDetailsView(generics.RetrieveAPIView):
     """View to retrieve a user instance."""

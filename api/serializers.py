@@ -13,7 +13,7 @@ class ItemSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     """A user serializer to aid in authentication and authorization."""
 
-    iteù = serializers.PrimaryKeyRelatedField(
+    item = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Item.objects.all())
 
     class Meta:
