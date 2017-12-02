@@ -13,10 +13,7 @@ class ItemSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     """A user serializer to aid in authentication and authorization."""
 
-    item = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Item.objects.all())
-
     class Meta:
         """Map this serializer to the default django user model."""
         model = User
-        fields = ('id', 'username', 'item')
+        fields = ('first_name','last_name','username', 'password')

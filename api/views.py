@@ -105,6 +105,14 @@ class item_last24(generics.ListCreateAPIView):
             timestamp__gte = date_from
         )[:100]
 
+class UserAddView(generics.CreateAPIView):
+
+    #Fetch serializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.AllowAny,)
+
+
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
@@ -118,5 +126,15 @@ class UserView(generics.ListAPIView):
 
 class UserDetailsView(generics.RetrieveAPIView):
     """View to retrieve a user instance."""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserUpdateView(generics.UpdateAPIView):
+    """View to update a user instance."""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDeleteView(generics.DestroyAPIView):
+    """View to delete a user instance."""
     queryset = User.objects.all()
     serializer_class = UserSerializer

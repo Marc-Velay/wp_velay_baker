@@ -13,6 +13,9 @@ urlpatterns = {
 
     #User-related urls
     url(r'^users/$', UserView.as_view(), name="users"),
+    url(r'^users/add/$', UserAddView.as_view(), name="add_users"),
+    url(r'^users/update/(?P<pk>[0-9]+)/$', UserUpdateView.as_view(), name="update_users"),
+    url(r'^users/delete/(?P<pk>[0-9]+)/$', UserDeleteView.as_view(), name="delete_users"),
     url(r'users/(?P<pk>[0-9]+)/$',
         UserDetailsView.as_view(), name="user_details"),
 
