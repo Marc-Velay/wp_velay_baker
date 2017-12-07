@@ -19,6 +19,13 @@ urlpatterns = {
     url(r'users/(?P<pk>[0-9]+)/$',
         UserDetailsView.as_view(), name="user_details"),
 
+    #Portfolio related urls
+    url(r'^portfolio/',include([
+        url(r'^add/$', CreatePortfolioView.as_view(), name="add_portfolio"),
+        url(r'^update/(?P<pk>[0-9]+)/$', PortfolioView.as_view(), name="update_portfolio"),
+        url(r'^delete/(?P<pk>[0-9]+)/$', PortfolioView.as_view(), name="delete_portfolio"),
+    ])),
+
     #Item management urls
     url(r'^items/$', CreateView.as_view(), name="create"),
     #url(r'^list/$', item_list.as_view(), name="List of items"),

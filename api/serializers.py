@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Item
+from api.models import *
 from django.contrib.auth.models import User
 
 
@@ -17,3 +17,12 @@ class UserSerializer(serializers.ModelSerializer):
         """Map this serializer to the default django user model."""
         model = User
         fields = ('first_name','last_name','username', 'password')
+
+class PortfolioSerializer(serializers.ModelSerializer):
+    """Portfolio serializer"""
+    #user = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        """Map this serializer to the default portfolio model."""
+        model = Portfolio
+        fields = ('id','name',)

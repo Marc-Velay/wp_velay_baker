@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from api.serializers import *
-from api.models import Item
+from api.models import *
 import datetime
 
 # Create your views here.
@@ -30,6 +30,24 @@ class DetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
+class PortfolioView(generics.RetrieveUpdateDestroyAPIView):
+
+    # Handles REST ( GET, PUT, DELETE )
+    queryset = Portfolio.objects.filter(id__lte=100)
+    serializer_class = PortfolioSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+class CreatePortfolioView(generics.ListCreateAPIView):
+
+    # Gives us control over our api
+    queryset = Portfolio.objects.filter(id__lte=100)
+    serializer_class = PortfolioSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        """Save the post data when creating a new Portfolio."""
+        serializer.save()
 
 class item_year(generics.ListCreateAPIView):
 

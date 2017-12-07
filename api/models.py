@@ -12,10 +12,11 @@ class Portfolio(models.Model):
     """
     Portfolio model
     """
-
     name = models.CharField(max_length=150, unique=True)
-    owner = models.ForeignKey(User)
-    cash = models.FloatField(default=0)
+    #owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    #def __unicode__(self):
+    #    return '%s' % (self.owner.username)
 
 # Stock and item model
 class Item(models.Model):
@@ -39,8 +40,11 @@ class PortfolioItem(models.Model):
     An item within a portfolio.
     """
 
-    portfolio = models.ForeignKey(Portfolio)
-    Item = models.ForeignKey(Item)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+    Item = models.ForeignKey(Item, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('portfolio', 'Item')
 
 
 # Token receiver
