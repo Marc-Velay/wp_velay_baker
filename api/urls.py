@@ -24,6 +24,13 @@ urlpatterns = {
         url(r'^add/$', CreatePortfolioView.as_view(), name="add_portfolio"),
         url(r'^update/(?P<pk>[0-9]+)/$', PortfolioView.as_view(), name="update_portfolio"),
         url(r'^delete/(?P<pk>[0-9]+)/$', PortfolioView.as_view(), name="delete_portfolio"),
+        url(r'^list/$', PortfolioList.as_view(), name="list_portfolio"),
+        url(r'^item/',include([
+            url(r'^add/$', AddPortfolioItem.as_view(), name="add_portfolio_item"),
+            url(r'^update/(?P<pk>[0-9]+)/$', PortfolioItemView.as_view(), name="update_portfolio_item"),
+            url(r'^delete/(?P<pk>[0-9]+)/$', PortfolioItemView.as_view(), name="delete_portfolio_item"),
+            url(r'^list/$', PortfolioItemList.as_view(), name="list_portfolio_item"),
+        ])),
     ])),
 
     #Item management urls

@@ -13,7 +13,7 @@ class Portfolio(models.Model):
     Portfolio model
     """
     name = models.CharField(max_length=150, unique=True)
-    #owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='portfolios', on_delete=models.CASCADE, null=False)
 
     #def __unicode__(self):
     #    return '%s' % (self.owner.username)
@@ -41,10 +41,10 @@ class PortfolioItem(models.Model):
     """
 
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
-    Item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('portfolio', 'Item')
+        unique_together = (('portfolio', 'item'))
 
 
 # Token receiver

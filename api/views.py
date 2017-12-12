@@ -31,6 +31,11 @@ class DetailsView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ItemSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+class PortfolioList(generics.ListAPIView):
+    """View to list the portfolio queryset."""
+    queryset = Portfolio.objects.all()
+    serializer_class = PortfolioSerializer
+
 class PortfolioView(generics.RetrieveUpdateDestroyAPIView):
 
     # Handles REST ( GET, PUT, DELETE )
@@ -38,16 +43,52 @@ class PortfolioView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PortfolioSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-class CreatePortfolioView(generics.ListCreateAPIView):
+class CreatePortfolioView(generics.CreateAPIView):
 
     # Gives us control over our api
-    queryset = Portfolio.objects.filter(id__lte=100)
     serializer_class = PortfolioSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def perform_create(self, serializer):
         """Save the post data when creating a new Portfolio."""
-        serializer.save()
+        serializer.save(user=self.request.user)
+
+class AddPortfolioItem(generics.CreateAPIView):
+
+    #Fetch correct item serializer
+    serializer_class = PortfolioItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    """def perform_create(self, serializer):
+        portf_id = self.kwargs['pk']
+        item_id = self.kwargs['pk2']
+        portfolio = Portfolio.objects.filter(id = portf_id)
+        item = Item.objects.filter(id = item_id)
+
+        serializer.save(portfolio_id=portf,item_id=item)"""
+
+class PortfolioItemView(generics.RetrieveUpdateDestroyAPIView):
+
+    # Handles REST ( GET, PUT, DELETE )
+    serializer_class = PortfolioItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        """
+        This view returns all entries for the given year through the URL
+        """
+        pk = self.kwargs['pk']
+        return PortfolioItem.objects.filter(portfolio = pk,)
+
+class PortfolioItemList(generics.ListAPIView):
+
+    # Handles REST ( GET, PUT, DELETE )
+    queryset = PortfolioItem.objects.all()
+    serializer_class = PortfolioItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+#class GetAssociatedItems(generics.RetrieveAPIView):
+
 
 class item_year(generics.ListCreateAPIView):
 
