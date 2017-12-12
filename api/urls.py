@@ -30,6 +30,7 @@ urlpatterns = {
             url(r'^update/(?P<pk>[0-9]+)/$', PortfolioItemView.as_view(), name="update_portfolio_item"),
             url(r'^delete/(?P<pk>[0-9]+)/$', PortfolioItemView.as_view(), name="delete_portfolio_item"),
             url(r'^list/$', PortfolioItemList.as_view(), name="list_portfolio_item"),
+            url(r'^get/(?P<pk>[0-9]+)/$', PortfolioItemView.as_view(), name="get_portfolio_item")
         ])),
     ])),
 

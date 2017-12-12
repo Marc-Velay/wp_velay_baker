@@ -75,10 +75,10 @@ class PortfolioItemView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         """
-        This view returns all entries for the given year through the URL
+        This view returns
         """
         pk = self.kwargs['pk']
-        return PortfolioItem.objects.filter(portfolio = pk,)
+        return PortfolioItem.objects.filter(id = pk,)
 
 class PortfolioItemList(generics.ListAPIView):
 
