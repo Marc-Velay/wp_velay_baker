@@ -16,7 +16,7 @@ urlpatterns = {
     url(r'^users/add/$', UserAddView.as_view(), name="add_users"),
     url(r'^users/update/(?P<pk>[0-9]+)/$', UserUpdateView.as_view(), name="update_users"),
     url(r'^users/delete/(?P<pk>[0-9]+)/$', UserDeleteView.as_view(), name="delete_users"),
-    url(r'users/(?P<pk>[0-9]+)/$',
+    url(r'^users/(?P<pk>[0-9]+)/$',
         UserDetailsView.as_view(), name="user_details"),
 
     #Portfolio related urls
@@ -25,13 +25,9 @@ urlpatterns = {
         url(r'^update/(?P<pk>[0-9]+)/$', PortfolioView.as_view(), name="update_portfolio"),
         url(r'^delete/(?P<pk>[0-9]+)/$', PortfolioView.as_view(), name="delete_portfolio"),
         url(r'^list/$', PortfolioList.as_view(), name="list_portfolio"),
-        url(r'^item/',include([
-            url(r'^add/$', AddPortfolioItem.as_view(), name="add_portfolio_item"),
-            url(r'^update/(?P<pk>[0-9]+)/$', PortfolioItemView.as_view(), name="update_portfolio_item"),
-            url(r'^delete/(?P<pk>[0-9]+)/$', PortfolioItemView.as_view(), name="delete_portfolio_item"),
-            url(r'^list/$', PortfolioItemList.as_view(), name="list_portfolio_item"),
-            url(r'^get/(?P<pk>[0-9]+)/$', PortfolioItemView.as_view(), name="get_portfolio_item")
-        ])),
+        url(r'^item/link/(?P<name>[^/]+)/$', LinkItemToPortfolio.as_view(), name="link_portfolio"),
+        url(r'^item/remove/(?P<name>[^/]+)/$', RemoveItemFromPortfolio.as_view(), name="remove_item_portfolio"),
+        url(r'^$', PortfolioView.as_view(), name="get_portfolio"),
     ])),
 
     #Item management urls
@@ -43,6 +39,7 @@ urlpatterns = {
         url(r'^(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$', item_month.as_view(), name="month"),
         url(r'^last24/$', item_last24.as_view(), name="Last 24 hours"),
     ])),
+
 }
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -8,44 +8,40 @@ from rest_framework.authtoken.models import Token
 from django.dispatch import receiver
 
 #Portfolio model
-class Portfolio(models.Model):
+class Forex(models.Model):
     """
-    Portfolio model
+    Forex model
     """
-    name = models.CharField(max_length=150, unique=True)
-    user = models.ForeignKey(User, related_name='portfolios', on_delete=models.CASCADE, null=False)
-
-    #def __unicode__(self):
-    #    return '%s' % (self.owner.username)
-
-# Stock and item model
-class Item(models.Model):
-    """
-    All items
-    """
-    name = models.CharField(max_length = 30)
-    source = models.CharField(max_length = 30)
     timestamp = models.DateTimeField()
     opening = models.DecimalField(max_digits=20,decimal_places=10)
     high = models.DecimalField(max_digits=20,decimal_places=10)
     low = models.DecimalField(max_digits=20,decimal_places=10)
     closing =  models.DecimalField(max_digits=20,decimal_places=10)
 
+# Stock and item model
+class Item(models.Model):
+    """
+    All items
+    """
+    name = models.CharField(max_length = 30, unique=True)
+    source = models.CharField(max_length = 30)
+    inst_type = models.CharField(max_length = 30)
+
     def __str__(self):
         """Return a human readable representation of the model instance."""
         return "{}".format(self.name)
 
-class PortfolioItem(models.Model):
+#Portfolio model
+class Portfolio(models.Model):
     """
-    An item within a portfolio.
+    Portfolio model
     """
+    name = models.CharField(max_length=150, unique=True)
+    user = models.ForeignKey(User, related_name='portfolios', on_delete=models.CASCADE, null=False)
+    items = models.ManyToManyField(Item)
 
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = (('portfolio', 'item'))
-
+    #def __unicode__(self):
+    #    return '%s' % (self.owner.username)
 
 # Token receiver
 @receiver(post_save, sender=User)

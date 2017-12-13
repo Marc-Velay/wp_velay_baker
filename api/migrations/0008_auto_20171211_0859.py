@@ -15,18 +15,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterUniqueTogether(
-            name='portfolioitem',
-            unique_together=set([]),
-        ),
-        migrations.RemoveField(
-            model_name='portfolioitem',
-            name='Item',
-        ),
-        migrations.RemoveField(
-            model_name='portfolioitem',
-            name='portfolio',
-        ),
+
         migrations.RemoveField(
             model_name='portfolio',
             name='owner',
@@ -41,7 +30,5 @@ class Migration(migrations.Migration):
             name='user',
             field=models.ForeignKey(default='1', on_delete=django.db.models.deletion.CASCADE, related_name='portfolios', to=settings.AUTH_USER_MODEL),
         ),
-        migrations.DeleteModel(
-            name='PortfolioItem',
-        ),
+        
     ]

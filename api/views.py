@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.db import connection
 from rest_framework import generics,permissions
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -53,42 +54,39 @@ class CreatePortfolioView(generics.CreateAPIView):
         """Save the post data when creating a new Portfolio."""
         serializer.save(user=self.request.user)
 
-class AddPortfolioItem(generics.CreateAPIView):
+class LinkItemToPortfolio(generics.CreateAPIView):
 
-    #Fetch correct item serializer
-    serializer_class = PortfolioItemSerializer
+    queryset = Portfolio.objects.all()
+    serializer_class = PortfolioSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    lookup_field = 'name'
 
-    """def perform_create(self, serializer):
-        portf_id = self.kwargs['pk']
-        item_id = self.kwargs['pk2']
-        portfolio = Portfolio.objects.filter(id = portf_id)
-        item = Item.objects.filter(id = item_id)
+    def post(self, request, *args, **kwargs):
+        portfolio = Portfolio.objects.get(name = request.data.get('name'))
+        name = self.kwargs['name']
+        item = Item.objects.get(name=name)
+        portfolio.items.add(item)
 
-        serializer.save(portfolio_id=portf,item_id=item)"""
+        serializer = PortfolioSerializer(portfolio)
 
-class PortfolioItemView(generics.RetrieveUpdateDestroyAPIView):
+        return Response(serializer.data)
 
-    # Handles REST ( GET, PUT, DELETE )
-    serializer_class = PortfolioItemSerializer
+class RemoveItemFromPortfolio(generics.CreateAPIView):
+
+    queryset = Portfolio.objects.all()
+    serializer_class = PortfolioSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    lookup_field = 'name'
 
-    def get_queryset(self):
-        """
-        This view returns
-        """
-        pk = self.kwargs['pk']
-        return PortfolioItem.objects.filter(id = pk,)
+    def post(self, request, *args, **kwargs):
+        portfolio = Portfolio.objects.get(name = request.data.get('name'))
+        name = self.kwargs['name']
+        item = Item.objects.get(name=name)
+        portfolio.items.remove(item)
 
-class PortfolioItemList(generics.ListAPIView):
+        serializer = PortfolioSerializer(portfolio)
 
-    # Handles REST ( GET, PUT, DELETE )
-    queryset = PortfolioItem.objects.all()
-    serializer_class = PortfolioItemSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
-#class GetAssociatedItems(generics.RetrieveAPIView):
-
+        return Response(serializer.data)
 
 class item_year(generics.ListCreateAPIView):
 

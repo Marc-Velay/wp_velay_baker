@@ -8,7 +8,7 @@ class ItemSerializer(ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('id', 'name', 'source', 'timestamp','opening','high','low','closing')
+        fields = ('id', 'name', 'source', 'inst_type')
 
 class UserSerializer(ModelSerializer):
     """A user serializer to aid in authentication and authorization."""
@@ -21,20 +21,12 @@ class UserSerializer(ModelSerializer):
 class PortfolioSerializer(ModelSerializer):
     """Portfolio serializer"""
     user = SerializerMethodField()
+    items = ItemSerializer(many=True, read_only=True)
 
     class Meta:
         """Map this serializer to the default portfolio model."""
         model = Portfolio
-        fields = ('id','name','user')
+        fields = ('id','name','user','items')
 
     def get_user(self, obj):
         return str(obj.user.username)
-
-class PortfolioItemSerializer(ModelSerializer):
-    portfolio = PrimaryKeyRelatedField(queryset=Portfolio.objects.all())
-    item = PrimaryKeyRelatedField(queryset=Item.objects.all())
-
-    class Meta:
-        """Map this serializer to the default portfolio item model."""
-        model = PortfolioItem
-        fields = ('portfolio','item')

@@ -17,14 +17,4 @@ class Migration(migrations.Migration):
             model_name='portfolio',
             name='item',
         ),
-        migrations.AddField(
-            model_name='portfolioitem',
-            name='portfolio',
-            field=models.ForeignKey(default='1', on_delete=django.db.models.deletion.CASCADE, to='api.Portfolio'),
-            preserve_default=False,
-        ),
-        migrations.AlterUniqueTogether(
-            name='portfolioitem',
-            unique_together=set([('portfolio', 'item')]),
-        ),
     ]
