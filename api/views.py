@@ -25,12 +25,19 @@ class CreateView(generics.ListCreateAPIView):
         """Save the post data when creating a new Item."""
         serializer.save()
 
-class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+class DetailsView(generics.RetrieveAPIView):
 
     # Handles REST ( GET, PUT, DELETE )
-    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        """
+        This view returns all entries for the given year through the URL
+        """
+        pk = self.kwargs['pk']
+        item = Item.objects.filter(id = pk,)
+        return item
 
 class PortfolioList(generics.ListAPIView):
     """View to list the portfolio queryset."""
@@ -41,6 +48,13 @@ class PortfolioView(generics.RetrieveUpdateDestroyAPIView):
 
     # Handles REST ( GET, PUT, DELETE )
     queryset = Portfolio.objects.filter(id__lte=100)
+    serializer_class = PortfolioSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+class UpdatePortfolioView(generics.UpdateAPIView):
+
+    # Handles REST ( GET, PUT, DELETE )
+    queryset = Portfolio.objects.all()
     serializer_class = PortfolioSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -59,12 +73,11 @@ class LinkItemToPortfolio(generics.CreateAPIView):
     queryset = Portfolio.objects.all()
     serializer_class = PortfolioSerializer
     permission_classes = (permissions.IsAuthenticated,)
-    lookup_field = 'name'
 
     def post(self, request, *args, **kwargs):
-        portfolio = Portfolio.objects.get(name = request.data.get('name'))
-        name = self.kwargs['name']
-        item = Item.objects.get(name=name)
+        portfolio = Portfolio.objects.get(id = request.data.get('id'))
+        pk = self.kwargs['pk']
+        item = Item.objects.get(id=pk)
         portfolio.items.add(item)
 
         serializer = PortfolioSerializer(portfolio)
@@ -73,20 +86,32 @@ class LinkItemToPortfolio(generics.CreateAPIView):
 
 class RemoveItemFromPortfolio(generics.CreateAPIView):
 
-    queryset = Portfolio.objects.all()
     serializer_class = PortfolioSerializer
     permission_classes = (permissions.IsAuthenticated,)
-    lookup_field = 'name'
 
     def post(self, request, *args, **kwargs):
-        portfolio = Portfolio.objects.get(name = request.data.get('name'))
-        name = self.kwargs['name']
-        item = Item.objects.get(name=name)
+        portfolio = Portfolio.objects.get(id = request.data.get('id'))
+        pk = self.kwargs['pk']
+        item = Item.objects.get(id=pk)
         portfolio.items.remove(item)
 
         serializer = PortfolioSerializer(portfolio)
 
         return Response(serializer.data)
+
+class GetItemsFromPortfolio(generics.RetrieveAPIView):
+
+    #Fetch correct item serializer
+    serializer_class = PortfolioItemSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        """
+        This view returns all entries for the given year through the URL
+        """
+        pk = self.kwargs['pk']
+        portfolio = Portfolio.objects.filter(id = pk,)
+        return portfolio
 
 class item_year(generics.ListCreateAPIView):
 

@@ -20,13 +20,22 @@ class UserSerializer(ModelSerializer):
 
 class PortfolioSerializer(ModelSerializer):
     """Portfolio serializer"""
-    user = SerializerMethodField()
+    user_id = SerializerMethodField()
     items = ItemSerializer(many=True, read_only=True)
 
     class Meta:
         """Map this serializer to the default portfolio model."""
         model = Portfolio
-        fields = ('id','name','user','items')
+        fields = ('id','name','user_id','items')
 
-    def get_user(self, obj):
-        return str(obj.user.username)
+    def get_user_id(self, obj):
+        return obj.user.id
+
+class PortfolioItemSerializer(ModelSerializer):
+    """Portfolio serializer"""
+    items = ItemSerializer(many=True, read_only=True)
+
+    class Meta:
+        """Map this serializer to the default portfolio model."""
+        model = Portfolio
+        fields = ('items',)
