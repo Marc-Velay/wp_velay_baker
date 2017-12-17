@@ -10,6 +10,7 @@ urlpatterns = {
     #Authentication urls
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^get-token/', CustomObtainAuthToken.as_view()),
+    url(r'^', CustomObtainAuthToken.as_view()),
 
     #User-related urls
     url(r'^users/$', UserView.as_view(), name="users"),
