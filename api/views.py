@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+import csv
 from django.db import connection
 from rest_framework import generics,permissions
 from rest_framework.response import Response
@@ -116,35 +117,31 @@ class GetItemsFromPortfolio(generics.RetrieveAPIView):
 class item_year(generics.ListCreateAPIView):
 
     #Fetch correct item serializer
-    serializer_class = ItemSerializer
+    serializer_class = ForexSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         """
         This view returns all entries for the given year through the URL
         """
-        item = self.kwargs['item']
         year = self.kwargs['year']
-        return Item.objects.filter(
-            name = item,
+        return Forex.objects.filter(
             timestamp__year = year
         )[:100]
 
 class item_month(generics.ListCreateAPIView):
 
     #Fetch correct item serializer
-    serializer_class = ItemSerializer
+    serializer_class = ForexSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         """
         This view returns all entries for the given month for the given item through the URL
         """
-        item = self.kwargs['item']
         year = self.kwargs['year']
         month = self.kwargs['month']
-        return Item.objects.filter(
-            name = item,
+        return Forex.objects.filter(
             timestamp__year = year,
             timestamp__month = month
         )[:100]
@@ -152,19 +149,17 @@ class item_month(generics.ListCreateAPIView):
 class item_day(generics.ListCreateAPIView):
 
     #Fetch correct item serializer
-    serializer_class = ItemSerializer
+    serializer_class = ForexSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         """
         This view returns all entries for the given day through the URL
         """
-        item = self.kwargs['item']
         year = self.kwargs['year']
         month = self.kwargs['month']
         day = self.kwargs['day']
-        return Item.objects.filter(
-            name = item,
+        return Forex.objects.filter(
             timestamp__year = year,
             timestamp__month = month,
             timestamp__day = day
@@ -173,7 +168,7 @@ class item_day(generics.ListCreateAPIView):
 class item_last24(generics.ListCreateAPIView):
 
     #Fetch serializer
-    serializer_class = ItemSerializer
+    serializer_class = ForexSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):

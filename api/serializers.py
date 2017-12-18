@@ -2,6 +2,12 @@ from rest_framework.serializers import *
 from api.models import *
 from django.contrib.auth.models import User
 
+class ForexSerializer(ModelSerializer):
+    """Serializer to map the Model instance into JSON format."""
+
+    class Meta:
+        model = Forex
+        fields = ('id','timestamp', 'opening', 'high', 'low', 'closing')
 
 class ItemSerializer(ModelSerializer):
     """Serializer to map the Model instance into JSON format."""
