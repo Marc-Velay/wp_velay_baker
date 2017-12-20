@@ -26,7 +26,7 @@ class CreateView(generics.ListCreateAPIView):
         """Save the post data when creating a new Item."""
         serializer.save()
 
-class DetailsView(generics.RetrieveAPIView):
+class DetailsView(generics.RetrieveUpdateDestroyAPIView):
 
     # Handles REST ( GET, PUT, DELETE )
     serializer_class = ItemSerializer
