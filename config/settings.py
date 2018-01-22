@@ -93,8 +93,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': join(DJANGO_ROOT, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'robotrader',
+        'USER': 'robot',
+        'PASSWORD': 'picklerick',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
